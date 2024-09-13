@@ -27,8 +27,8 @@ const IphoneModel = () => {
       },
     });
 
-    // Rotate the model around the Y-axis as you scroll down
-    tl.to(group.current.rotation, { y: Math.PI * 2, duration: 3 }); // 360-degree rotation along Y-axis
+    // Rotate the model 180 degrees along the Y-axis (front to back)
+    tl.to(group.current.rotation, { y: Math.PI, duration: 2 }); // 180-degree rotation along Y-axis
   }, []);
 
   if (!nodes || !materials) return null; // Early return if model is not loaded yet
@@ -38,8 +38,8 @@ const IphoneModel = () => {
       ref={group}
       dispose={null}
       scale={0.2}
-      // Adjust the initial rotation to make the iPhone show the top part
-      rotation={[Math.PI / 2, 0, 0]} // Tilt to show the top (antenna part)
+      // Initial rotation to show the front of the iPhone
+      rotation={[0, 0, 0]} // Keep the iPhone facing forward initially
     >
       {/* GLTF Meshes */}
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
@@ -112,7 +112,7 @@ const TextSection = () => {
 const ThreeScene = () => (
   <div id="three-canvas-container" style={{ width: "100vw", height: "500px" }}>
     <Canvas
-      camera={{ position: [0, 5, 10], fov: 45 }} // Move the camera up and back to focus on the top of the iPhone
+      camera={{ position: [0, 0, 10], fov: 45 }} // Standard camera view facing the front of the iPhone
       gl={{ antialias: true, alpha: false }}
     >
       <ambientLight intensity={0.4} />
