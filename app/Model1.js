@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -20,26 +20,26 @@ const IphoneModel = () => {
       scrollTrigger: {
         trigger: "#three-canvas-container",
         scrub: 1,
-        markers: true, // Enable markers for debugging
+        markers: true, // Debugging markers
         pin: true,
         start: "top top",
         end: "bottom top",
       },
     });
 
-    // Rotate the model 180 degrees along the Y-axis (front to back)
-    tl.to(group.current.rotation, { y: Math.PI, duration: 2 }); // 180-degree rotation along Y-axis
+    // Rotate the model 180 degrees along the Y-axis to show front-to-back rotation
+    tl.to(group.current.rotation, { y: Math.PI, duration: 2 }); // 180-degree rotation
   }, []);
 
-  if (!nodes || !materials) return null; // Early return if model is not loaded yet
+  if (!nodes || !materials) return null;
 
   return (
     <group
       ref={group}
       dispose={null}
       scale={0.2}
-      // Initial rotation to show the front of the iPhone
-      rotation={[0, 0, 0]} // Keep the iPhone facing forward initially
+      // No initial rotation, so the front is facing the camera
+      rotation={[0, 0, 0]} // Ensures the front view is shown initially
     >
       {/* GLTF Meshes */}
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
@@ -64,55 +64,10 @@ const Background = () => {
   return null;
 };
 
-const TextSection = () => {
-  const textRefs = useRef([]);
-
-  useEffect(() => {
-    gsap.fromTo(
-      textRefs.current,
-      { opacity: 0 },
-      {
-        opacity: 1,
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: "#text-trigger",
-          start: "top bottom",
-          end: "center center",
-          scrub: 1,
-          markers: true, // Debugging markers
-        },
-      }
-    );
-  }, []);
-
-  const texts = ["Ready 5", "Ready 4", "Ready 3", "Ready 2", "Ready 1"];
-
-  return (
-    <div
-      id="text-trigger"
-      style={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        position: "relative",
-        top: "500px",
-      }}
-    >
-      {texts.map((text, index) => (
-        <h1 key={index} ref={(el) => (textRefs.current[index] = el)} style={{ opacity: 0 }}>
-          {text}
-        </h1>
-      ))}
-    </div>
-  );
-};
-
 const ThreeScene = () => (
   <div id="three-canvas-container" style={{ width: "100vw", height: "500px" }}>
     <Canvas
-      camera={{ position: [0, 0, 10], fov: 45 }} // Standard camera view facing the front of the iPhone
+      camera={{ position: [0, 0, 10], fov: 45 }} // Camera positioned directly in front of the iPhone
       gl={{ antialias: true, alpha: false }}
     >
       <ambientLight intensity={0.4} />
@@ -139,9 +94,6 @@ const Model1 = () => (
 
     {/* 3D Scene */}
     <ThreeScene />
-
-    {/* Text Section */}
-    <TextSection />
   </div>
 );
 
