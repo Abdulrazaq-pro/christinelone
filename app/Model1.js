@@ -23,7 +23,7 @@ const IphoneModel = () => {
     })
 
     // Rotate the model along the Y-axis instead of the Z-axis
-    tl.to(group.current.rotation, { y: Math.PI, duration: 2 }) // Rotates 180 degrees on the Y axis
+    tl.to(group.current.rotation, { z: Math.PI, duration: 2 }) // Rotates 180 degrees on the Y axis
   }, [])
 
   return (
