@@ -103,7 +103,7 @@ const TextSection = () => {
 };
 
 const ThreeScene = () => (
-  <div id="three-canvas-container" style={{ width: "100vw", height: "100vh" }}>
+  <div id="three-canvas-container" style={{ width: "100vw", height: "500px" }}>
     <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
