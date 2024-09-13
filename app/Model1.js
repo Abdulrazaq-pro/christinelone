@@ -15,7 +15,7 @@ const IphoneModel = () => {
 
   useEffect(() => {
     if (!group.current) return;
-    
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: "#three-canvas-container",
@@ -27,13 +27,20 @@ const IphoneModel = () => {
       },
     });
 
-    tl.to(group.current.rotation, { z: Math.PI / 8, duration: 2 });
+    // Rotate the model from left to right as you scroll down
+    tl.to(group.current.rotation, { y: Math.PI / 4, duration: 2 });
   }, []);
 
   if (!nodes || !materials) return null; // Early return if model is not loaded yet
 
   return (
-    <group ref={group} dispose={null} scale={0.2} rotation={[Math.PI / 2, 0, -Math.PI / 8]}>
+    <group
+      ref={group}
+      dispose={null}
+      scale={0.2}
+      // Adjust the initial rotation to make the iPhone appear slanted
+      rotation={[Math.PI / 6, -Math.PI / 6, 0]}
+    >
       {/* GLTF Meshes */}
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials["glass.001"]} />
