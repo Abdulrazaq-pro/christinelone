@@ -96,7 +96,7 @@ const TextSection = () => {
 }
 
 const ThreeScene = () => {
-  const cameraRef = useRef()
+  const { camera } = useThree()
   
   useEffect(() => {
     const tl = gsap.timeline({
@@ -109,21 +109,10 @@ const ThreeScene = () => {
     })
 
     // Animate the camera's Z position to zoom in as you scroll
-    tl.to(cameraRef.current.position, { z: 5, duration: 2 }) // Adjust Z to control zoom effect
-  }, [])
+    tl.to(camera.position, { z: 5, duration: 2 }) // Adjust Z to control zoom effect
+  }, [camera])
 
-  return (
-    <div id="three-canvas-container" style={{ width: '100vw', height: '500px' }}>
-      <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
-        <ambientLight intensity={0.4} />
-        <directionalLight position={[5, 10, 7.5]} intensity={1} />
-        <IphoneModel />
-        {/* Assign the ref to the camera */}
-        <perspectiveCamera ref={cameraRef} position={[0, 0, 10]} />
-        <Background />
-      </Canvas>
-    </div>
-  )
+  return null
 }
 
 const App = () => (
@@ -131,7 +120,15 @@ const App = () => (
     <div className="some-content" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <h1>ACTION</h1>
     </div>
-    <ThreeScene />
+    <div id="three-canvas-container" style={{ width: '100vw', height: '500px' }}>
+      <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 10, 7.5]} intensity={1} />
+        <IphoneModel />
+        <ThreeScene /> {/* The component controlling the camera */}
+        <Background />
+      </Canvas>
+    </div>
     <TextSection />
   </div>
 )
