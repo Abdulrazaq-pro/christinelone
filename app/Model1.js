@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
-import { useGLTF, OrbitControls } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import * as THREE from 'three'
@@ -16,18 +16,18 @@ const IphoneModel = () => {
       scrollTrigger: {
         trigger: '#three-canvas-container',
         scrub: 1,
-        //markers: true,
         pin: true,
         start: 'top top',
-        end: 'bottom top'
-      }
+        end: 'bottom top',
+      },
     })
 
-    tl.to(group.current.rotation, { z: Math.PI / 8, duration: 2 })
+    // Rotate the model along the Y-axis instead of the Z-axis
+    tl.to(group.current.rotation, { y: Math.PI, duration: 2 }) // Rotates 180 degrees on the Y axis
   }, [])
 
   return (
-    <group ref={group} dispose={null} scale={0.2} rotation={[Math.PI / 2, 0, -Math.PI / 8]}>
+    <group ref={group} dispose={null} scale={0.2} rotation={[Math.PI / 2, 0, 0]}>
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials['glass.001']} />
       <mesh geometry={nodes.M_Metal_Rough.geometry} material={materials.metal_rough} />
@@ -65,8 +65,8 @@ const TextSection = () => {
           start: 'top bottom',
           end: 'center center',
           scrub: 1,
-          markers: false
-        }
+          markers: false,
+        },
       }
     )
   }, [])
@@ -83,8 +83,9 @@ const TextSection = () => {
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        top: '500px'
-      }}>
+        top: '500px',
+      }}
+    >
       {texts.map((text, index) => (
         <h1 key={index} ref={(el) => (textRefs.current[index] = el)} style={{ opacity: 0 }}>
           {text}
@@ -100,7 +101,7 @@ const ThreeScene = () => (
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
       <IphoneModel />
-      <OrbitControls enableZoom={false} />
+      {/* Removed OrbitControls to disable touch-based interaction */}
       <Background />
     </Canvas>
   </div>
