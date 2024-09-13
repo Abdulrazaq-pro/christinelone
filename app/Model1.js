@@ -22,8 +22,8 @@ const IphoneModel = () => {
       },
     })
 
-    // Rotate the model along the Y-axis instead of the Z-axis
-    tl.to(group.current.rotation, { z: Math.PI, duration: 2 }) // Rotates 180 degrees on the Y axis
+    // Rotate the model along the Y-axis as the page scrolls
+    tl.to(group.current.rotation, { y: Math.PI, duration: 2 }) // Rotates 180 degrees on the Y axis
   }, [])
 
   return (
@@ -95,17 +95,36 @@ const TextSection = () => {
   )
 }
 
-const ThreeScene = () => (
-  <div id="three-canvas-container" style={{ width: '100vw', height: '500px' }}>
-    <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 10, 7.5]} intensity={1} />
-      <IphoneModel />
-      {/* Removed OrbitControls to disable touch-based interaction */}
-      <Background />
-    </Canvas>
-  </div>
-)
+const ThreeScene = () => {
+  const cameraRef = useRef()
+  
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#three-canvas-container',
+        scrub: 1,
+        start: 'top top',
+        end: 'bottom top',
+      },
+    })
+
+    // Animate the camera's Z position to zoom in as you scroll
+    tl.to(cameraRef.current.position, { z: 5, duration: 2 }) // Adjust Z to control zoom effect
+  }, [])
+
+  return (
+    <div id="three-canvas-container" style={{ width: '100vw', height: '500px' }}>
+      <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 10, 7.5]} intensity={1} />
+        <IphoneModel />
+        {/* Assign the ref to the camera */}
+        <perspectiveCamera ref={cameraRef} position={[0, 0, 10]} />
+        <Background />
+      </Canvas>
+    </div>
+  )
+}
 
 const App = () => (
   <div style={{ display: 'flex', flexDirection: 'column', height: '400vh' }}>
