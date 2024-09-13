@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebGL Check</title>
+  <script type="module">
+    // Load the necessary WebGL check from the three.js module
+    import { WEBGL } from 'https://cdn.jsdelivr.net/npm/three@0.152.2/examples/jsm/WebGL.js';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (!WEBGL.isWebGLAvailable()) {
+        // Show a message if WebGL is not available
+        document.body.innerHTML = `
+          <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+            <h1>Your browser does not support WebGL. Please use a WebGL-compatible browser.</h1>
+          </div>`;
+      } else {
+        // If WebGL is available, initialize your app or display a message
+        document.body.innerHTML = `
+          <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+            <h1>WebGL is supported! Your app can now initialize.</h1>
+          </div>`;
+
+        // Initialize your WebGL-based app here (e.g., start rendering 3D scene)
+      }
+    });
+  </script>
+</head>
+<body>
+  <div id="content">
+    <!-- The content here will be replaced by the script based on WebGL support -->
+  </div>
+</body>
+</html>
