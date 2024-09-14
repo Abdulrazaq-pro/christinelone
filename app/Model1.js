@@ -162,13 +162,13 @@ const App = () => (
         <Background />
       </Canvas>
     </div>
-    <div id="three-canvas-container" style={{ width: '100vw', height: '500px' }}>
+    
       
       
         <IphoneModel1 />
     
       
-    </div>
+
     <TextSection />
   </div>
 )
