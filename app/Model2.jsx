@@ -1,5 +1,5 @@
-import React, { useRef } from 'react'
-import { Canvas } from '@react-three/fiber'
+import React, { useRef, useState } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 
 const IphoneModel = () => {
@@ -7,7 +7,7 @@ const IphoneModel = () => {
   const { nodes, materials } = useGLTF('/Iphone15.glb')
 
   return (
-    <group ref={group} dispose={null} scale={0.55} rotation={[0, 0, 0]}> {/* Adjust the scale */}
+    <group ref={group} dispose={null} scale={0.55} rotation={[0, 0, 0]}>
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials['glass.001']} />
       <mesh geometry={nodes.M_Metal_Rough.geometry} material={materials.metal_rough} />
@@ -21,21 +21,30 @@ const IphoneModel = () => {
   )
 }
 
-const ThreeScene = () => {
+const ThreeScene = ({ rotationSpeed }) => {
+  const group = useRef()
+  useFrame(() => {
+    group.current.rotation.y += rotationSpeed // Carousel rotation
+  })
+
   return (
     <Canvas
-      camera={{ position: [0, 0, 5], fov: 20 }}  {/* Narrowed FOV while keeping the camera close */}
-      gl={{ antialias: true, alpha: true }} // Enable transparency
-      style={{ background: 'none', height: '100%', width: '100%' }} // Full canvas size
+      camera={{ position: [0, 0, 5], fov: 20 }} // Adjust FOV and camera position
+      gl={{ antialias: true, alpha: true }}
+      style={{ background: 'none', height: '100%', width: '100%' }}
     >
       <ambientLight intensity={0.5} />
       <directionalLight position={[2, 5, 2]} intensity={1} />
-      <IphoneModel />
+      <group ref={group}>
+        <IphoneModel />
+      </group>
     </Canvas>
   )
 }
 
 const IphoneRow = () => {
+  const [rotationSpeed] = useState(0.01) // Control carousel speed
+
   return (
     <div
       style={{
@@ -48,13 +57,13 @@ const IphoneRow = () => {
       }}
     >
       <div style={{ width: '30%', height: '100%' }}>
-        <ThreeScene />
+        <ThreeScene rotationSpeed={rotationSpeed} />
       </div>
       <div style={{ width: '30%', height: '100%' }}>
-        <ThreeScene />
+        <ThreeScene rotationSpeed={rotationSpeed} />
       </div>
       <div style={{ width: '30%', height: '100%' }}>
-        <ThreeScene />
+        <ThreeScene rotationSpeed={rotationSpeed} />
       </div>
     </div>
   )
