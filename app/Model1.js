@@ -22,7 +22,6 @@ const IphoneModel = () => {
       },
     })
 
-    // Rotate the model along the Y-axis as the page scrolls
     tl.to(group.current.rotation, { z: Math.PI, duration: 2 }) // Rotates 180 degrees on the Y axis
   }, [])
 
@@ -40,6 +39,7 @@ const IphoneModel = () => {
     </group>
   )
 }
+
 const IphoneModel1 = () => {
   const group = useRef()
   const { nodes, materials } = useGLTF('/Iphone15.glb')
@@ -47,7 +47,7 @@ const IphoneModel1 = () => {
   useEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: '#three-canvas-container',
+        trigger: '#three-canvas-container-2', // Use different trigger id
         scrub: 1,
         pin: true,
         start: 'top top',
@@ -55,8 +55,7 @@ const IphoneModel1 = () => {
       },
     })
 
-    // Rotate the model along the Y-axis as the page scrolls
-    tl.to(group.current.rotation, { z: Math.PI, duration: 2 }) // Rotates 180 degrees on the Y axis
+    tl.to(group.current.rotation, { z: Math.PI, duration: 2 })
   }, [])
 
   return (
@@ -141,8 +140,7 @@ const ThreeScene = () => {
       },
     })
 
-    // Animate the camera's Z position to zoom in as you scroll
-    tl.to(camera.position, { z: 5, duration: 2 }) // Adjust Z to control zoom effect
+    tl.to(camera.position, { z: 5, duration: 2 })
   }, [camera])
 
   return null
@@ -153,27 +151,27 @@ const App = () => (
     <div className="some-content" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <h1>ACTION</h1>
     </div>
+
+    {/* First canvas for IphoneModel */}
     <div id="three-canvas-container" style={{ width: '100vw', height: '500px' }}>
       <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 10, 7.5]} intensity={1} />
         <IphoneModel />
-        <ThreeScene /> {/* The component controlling the camera */}
+        <ThreeScene />
         <Background />
       </Canvas>
     </div>
-<<<<<<< HEAD
-    <div id="three-canvas-container" style={{ width: '100vw', height: '500px' }}>
+
+    {/* Second canvas for IphoneModel1 */}
+    {/* <div id="three-canvas-container-2" style={{ width: '100vw', height: '500px' }}>
       <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
-      
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 10, 7.5]} intensity={1} />
         <IphoneModel1 />
-=======
->>>>>>> 8b20b5b68d9940eea4885a77eb959a2353a6daf4
-    
-      
-      
-           
-      
+        <Background />
+      </Canvas>
+    </div> */}
 
     <TextSection />
   </div>
