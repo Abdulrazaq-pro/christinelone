@@ -69,9 +69,7 @@ const IphoneRow = () => {
 
 const App = () => (
   <div style={{ display: 'flex', flexDirection: 'column', height: '400vh' }}>
-    <div className="some-content" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <h1>ACTION</h1>
-    </div>
+    
     <div id="three-canvas-container">
       <IphoneRow />
     </div>
