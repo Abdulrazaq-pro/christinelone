@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Model1 from './components/Model1'
-import Model2 from './components/Model1'
+import Model2 from './components/Model2'
 
 
 export default function Home() {
