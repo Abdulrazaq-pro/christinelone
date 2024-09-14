@@ -29,7 +29,7 @@ const ThreeScene = ({ rotationSpeed }) => {
 
   return (
     <Canvas
-      camera={{ position: [0, 0, 5], fov: 20 }} // Adjust FOV and camera position
+      camera={{ position: [0, 0, 5], fov: 50}} // Adjust FOV and camera position
       gl={{ antialias: true, alpha: true }}
       style={{ background: 'none', height: '100%', width: '100%' }}
     >
