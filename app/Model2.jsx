@@ -1,6 +1,7 @@
-import React, { useRef } from 'react'
+import React, { useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
+import { gsap } from 'gsap'
 
 const IphoneModel = () => {
   const group = useRef()
@@ -35,8 +36,12 @@ const ThreeScene = () => {
   )
 }
 
-// New Component to render 3 iPhone models in a row
 const IphoneRow = () => {
+  useEffect(() => {
+    // GSAP to set the scale to make iPhone models larger without animation
+    gsap.set('.three-scene-container', { scale: 1.5 }) // Scale the iPhone models
+  }, [])
+
   return (
     <div
       style={{
@@ -48,13 +53,13 @@ const IphoneRow = () => {
         gap: '10px',
       }}
     >
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+      <div className="three-scene-container scale-300" style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+      <div className="three-scene-container scale-300" style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
-      <div  className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+      <div className="three-scene-container scale-300" style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
     </div>
