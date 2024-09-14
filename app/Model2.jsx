@@ -64,7 +64,7 @@ const IphoneRow = () => {
 const Model2 = () => (
   <div style={{ width: '100vw', height: '500px' }}>
   {/* <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}> */}
-    <div id="three-canvas-container">
+    <div>
       <IphoneRow />
     </div>
   </div>
