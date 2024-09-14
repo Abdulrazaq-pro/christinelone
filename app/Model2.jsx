@@ -67,7 +67,7 @@ const IphoneRow = () => {
   )
 }
 
-const App = () => (
+const Model2 = () => (
   <div style={{ display: 'flex', flexDirection: 'column', height: '400vh' }}>
     
     <div id="three-canvas-container">
@@ -76,4 +76,4 @@ const App = () => (
   </div>
 )
 
-export default App
+export default Model2
