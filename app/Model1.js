@@ -148,7 +148,7 @@ const ThreeScene = () => {
   return null
 }
 
-const App = () => (
+const Model1 = () => (
   <div style={{ display: 'flex', flexDirection: 'column', height: '400vh' }}>
     <div className="some-content" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <h1>ACTION</h1>
@@ -167,4 +167,4 @@ const App = () => (
   </div>
 )
 
-export default App
+export default Model1;
