@@ -169,4 +169,4 @@ const Model2 = () => (
   </div>
 )
 
-export default Model2
+export default Model2;
