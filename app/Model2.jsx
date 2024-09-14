@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 
@@ -23,7 +23,11 @@ const IphoneModel = () => {
 
 const ThreeScene = () => {
   return (
-    <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
+    <Canvas
+      camera={{ position: [0, 0, 10], fov: 45 }}
+      gl={{ antialias: true, alpha: true }} // Enable transparency
+      style={{ background: 'none' }}        // Make sure background is none
+    >
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
       <IphoneModel />
@@ -37,14 +41,13 @@ const IphoneRow = () => {
     <div
       style={{
         display: 'flex',
-        justifyContent: 'center', // Center the models
+        justifyContent: 'center',
         alignItems: 'center',
         width: '100vw',
         height: '500px',
-        gap: '10px', // Small space between models
+        gap: '10px',
       }}
     >
-      {/* Adjusting the width and flex-basis to ensure they fit the screen */}
       <div style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
