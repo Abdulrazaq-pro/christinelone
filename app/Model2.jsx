@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { gsap } from 'gsap'
@@ -37,13 +37,16 @@ const ThreeScene = () => {
 }
 
 const IphoneRow = () => {
+  const rowRef = useRef()
+
   useEffect(() => {
-    // GSAP to set the scale to make iPhone models larger without animation
-    gsap.set('.three-scene-container', { scale: 1.5 }) // Scale the iPhone models
+    // GSAP set to instantly zoom in
+    gsap.set(rowRef.current, { scale: 1.5 }) // Adjust the scale as per your zoom requirement
   }, [])
 
   return (
     <div
+      ref={rowRef}
       style={{
         display: 'flex',
         justifyContent: 'center',
@@ -53,13 +56,13 @@ const IphoneRow = () => {
         gap: '10px',
       }}
     >
-      <div className="three-scene-container scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
-      <div className="three-scene-container scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
-      <div className="three-scene-container scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
     </div>
