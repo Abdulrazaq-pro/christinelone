@@ -142,7 +142,7 @@ const ThreeScene = () => {
     })
 
     // Animate the camera's Z position to zoom in as you scroll
-    tl.to(camera.position, { z: 3, duration: 2 }) // Adjust Z to control zoom effect
+    tl.to(camera.position, { z: 5, duration: 2 }) // Adjust Z to control zoom effect
   }, [camera])
 
   return null
