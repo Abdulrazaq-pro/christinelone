@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react'
-import { Canvas, useThree } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
-import * as THREE from 'three'
 
 const IphoneModel = () => {
   const group = useRef()
@@ -22,22 +21,12 @@ const IphoneModel = () => {
   )
 }
 
-const Background = () => {
-  const { scene } = useThree()
-  useEffect(() => {
-    scene.background = new THREE.Color('#555555')
-  }, [scene])
-
-  return null
-}
-
 const ThreeScene = () => {
   return (
     <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
       <IphoneModel />
-      <Background />
     </Canvas>
   )
 }
@@ -48,19 +37,21 @@ const IphoneRow = () => {
     <div
       style={{
         display: 'flex',
-        justifyContent: 'space-between',  // Ensures the models fill the entire width
+        justifyContent: 'center', // Center the models
         alignItems: 'center',
         width: '100vw',
         height: '500px',
+        gap: '10px', // Small space between models
       }}
     >
-      <div style={{ flex: 1, margin: '0 10px' }}> {/* Reduce the margin between models */}
+      {/* Adjusting the width and flex-basis to ensure they fit the screen */}
+      <div style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
-      <div style={{ flex: 1, margin: '0 10px' }}>
+      <div style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
-      <div style={{ flex: 1, margin: '0 10px' }}>
+      <div style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
     </div>
@@ -68,7 +59,7 @@ const IphoneRow = () => {
 }
 
 const Model2 = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}> {/* Changed to 100vh to fit the screen */}
+  <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
     <div id="three-canvas-container">
       <IphoneRow />
     </div>
