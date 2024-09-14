@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import React, { useRef } from 'react'
+import { Canvas } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 
 const IphoneModel = () => {
@@ -7,7 +7,7 @@ const IphoneModel = () => {
   const { nodes, materials } = useGLTF('/Iphone15.glb')
 
   return (
-    <group ref={group} dispose={null} scale={0.55} rotation={[0, 0, 0]}>
+    <group ref={group} dispose={null} scale={0.3} rotation={[Math.PI / 2, 0, 0]}>
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials['glass.001']} />
       <mesh geometry={nodes.M_Metal_Rough.geometry} material={materials.metal_rough} />
@@ -21,30 +21,22 @@ const IphoneModel = () => {
   )
 }
 
-const ThreeScene = ({ rotationSpeed }) => {
-  const group = useRef()
-  useFrame(() => {
-    group.current.rotation.y += rotationSpeed // Carousel rotation
-  })
-
+const ThreeScene = () => {
   return (
     <Canvas
-      camera={{ position: [0, 0, 5], fov: 50}} // Adjust FOV and camera position
-      gl={{ antialias: true, alpha: true }}
-      style={{ background: 'none', height: '100%', width: '100%' }}
+      camera={{ position: [0, 0, 10], fov: 45 }}
+      gl={{ antialias: true, alpha: true }} // Enable transparency
+      style={{ background: 'none' }}        // Make sure background is none
     >
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[2, 5, 2]} intensity={1} />
-      <group ref={group}>
-        <IphoneModel />
-      </group>
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[5, 10, 7.5]} intensity={1} />
+      <IphoneModel />
     </Canvas>
   )
 }
 
+// New Component to render 3 iPhone models in a row
 const IphoneRow = () => {
-  const [rotationSpeed] = useState(0.01) // Control carousel speed
-
   return (
     <div
       style={{
@@ -52,18 +44,18 @@ const IphoneRow = () => {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100vw',
-        height: '90vh', // Provide enough vertical space
+        height: '500px',
         gap: '10px',
       }}
     >
-      <div style={{ width: '30%', height: '100%' }}>
-        <ThreeScene rotationSpeed={rotationSpeed} />
+      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+        <ThreeScene />
       </div>
-      <div style={{ width: '30%', height: '100%' }}>
-        <ThreeScene rotationSpeed={rotationSpeed} />
+      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+        <ThreeScene />
       </div>
-      <div style={{ width: '30%', height: '100%' }}>
-        <ThreeScene rotationSpeed={rotationSpeed} />
+      <div  className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+        <ThreeScene />
       </div>
     </div>
   )
