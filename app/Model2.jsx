@@ -37,7 +37,7 @@ const ThreeScene = () => {
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
       <IphoneModel />
-    
+      <Background />
     </Canvas>
   )
 }
@@ -68,8 +68,8 @@ const IphoneRow = () => {
 }
 
 const App = () => (
-  <div >
-    <div>
+  <div style={{ display: 'flex', flexDirection: 'column', height: '400vh' }}>
+    <div className="some-content" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <h1>ACTION</h1>
     </div>
     <div id="three-canvas-container">

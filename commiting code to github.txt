@@ -4,6 +4,9 @@ git branch -M main
 git remote add origin https://github.com/Abdulrazaq-pro/fiverr.git
 git push -u origin main
 
+git add .
+git commit -m "first commit"
+git push
 
 remove redundant code in this code
 improve the class naming to make it easier to read
