@@ -142,7 +142,7 @@ const ThreeScene = () => {
     })
 
     // Animate the camera's Z position to zoom in as you scroll
-    tl.to(camera.position, { z: 5, duration: 2 }) // Adjust Z to control zoom effect
+    tl.to(camera.position, { z: 3, duration: 2 }) // Adjust Z to control zoom effect
   }, [camera])
 
   return null
@@ -155,6 +155,7 @@ const Model1 = () => (
     </div>
     <div id="three-canvas-container" style={{ width: '100vw', height: '500px' }}>
       <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
+      {/* <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}> */}
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 10, 7.5]} intensity={1} />
         <IphoneModel />
