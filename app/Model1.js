@@ -163,7 +163,7 @@ const App = () => (
       </Canvas>
     </div>
     <div id="three-canvas-container" style={{ width: '100vw', height: '500px' }}>
-      <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
+      <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
       
         <IphoneModel1 />
     
