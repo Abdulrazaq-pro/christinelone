@@ -24,7 +24,7 @@ const IphoneModel = () => {
 const ThreeScene = () => {
   return (
     <Canvas
-      camera={{ position: [0, 0, 12], fov: 50 }} // Adjusted the camera position and fov to zoom out
+      camera={{ position: [0, 0, 12], fov: 45 }} // Adjusted the camera position and fov to zoom out
       gl={{ antialias: true, alpha: true }} // Enable transparency
       style={{ background: 'none' }} // Ensure no background
     >
