@@ -22,7 +22,7 @@ const IphoneModel = () => {
       }
     })
 
-    // Rotate the model along the Y-axis as the page scrolls
+    // Rotate the model along the Y-axis as the page scrolls yhhhhhhh
     tl.to(group.current.rotation, { z: Math.PI, duration: 2 }) // Rotates 180 degrees on the Y axis
   }, [])
 
