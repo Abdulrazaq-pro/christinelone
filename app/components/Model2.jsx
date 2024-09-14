@@ -7,7 +7,7 @@ import * as THREE from 'three'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const IphoneModel = () => {
+const IphoneModel2 = () => {
   const group = useRef()
   const { nodes, materials } = useGLTF('/Iphone15.glb')
 
@@ -158,9 +158,9 @@ const Model1 = () => (
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 10, 7.5]} intensity={1} />
         <div className="flex justify-between gap-2">
-          <IphoneModel />
-          <IphoneModel />
-          <IphoneModel />
+          <IphoneModel2 />
+          <IphoneModel2 />
+          <IphoneModel2 />
         </div>
         <ThreeScene /> {/* The component controlling the camera */}
         <Background />
