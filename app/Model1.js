@@ -162,13 +162,19 @@ const App = () => (
         <Background />
       </Canvas>
     </div>
+<<<<<<< HEAD
     <div id="three-canvas-container" style={{ width: '100vw', height: '500px' }}>
       <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
       
         <IphoneModel1 />
+=======
+>>>>>>> 8b20b5b68d9940eea4885a77eb959a2353a6daf4
     
-      </Canvas>
-    </div>
+      
+      
+           
+      
+
     <TextSection />
   </div>
 )
