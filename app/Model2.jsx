@@ -71,10 +71,18 @@ const IphoneRow = () => {
 
 const Model2 = () => (
   <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-    <div id="three-canvas-container">
-      <IphoneRow />
-    </div>
+    <Canvas
+      camera={{ position: [0, 0, 10], fov: 45 }}
+      gl={{ antialias: true, alpha: false }}
+    >
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[5, 10, 7.5]} intensity={1} />
+      <IphoneModel /> {/* This renders the iPhone model */}
+      <OrbitControls enableZoom={false} /> {/* Optional: If you want to control the model */}
+      <Background /> {/* This will set the background color of the scene */}
+    </Canvas>
   </div>
-)
+);
+
 
 export default Model2
