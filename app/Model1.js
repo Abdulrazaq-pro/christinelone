@@ -165,8 +165,7 @@ const App = () => (
     
       
       
-        <IphoneModel1 />
-    
+           
       
 
     <TextSection />
