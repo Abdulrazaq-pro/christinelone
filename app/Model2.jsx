@@ -7,7 +7,7 @@ const IphoneModel = () => {
   const { nodes, materials } = useGLTF('/Iphone15.glb')
 
   return (
-    <group ref={group} dispose={null} scale={0.6} rotation={[Math.PI / 2, 0, 0]}>
+    <group ref={group} dispose={null} scale={0.8} rotation={[Math.PI / 2, 0, 0]}>
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials['glass.001']} />
       <mesh geometry={nodes.M_Metal_Rough.geometry} material={materials.metal_rough} />
@@ -48,13 +48,13 @@ const IphoneRow = () => {
         gap: '10px',
       }}
     >
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+      <div style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+      <div style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
-      <div  className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+      <div  style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
     </div>
