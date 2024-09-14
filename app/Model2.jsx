@@ -7,7 +7,7 @@ const IphoneModel = () => {
   const { nodes, materials } = useGLTF('/Iphone15.glb')
 
   return (
-    <group ref={group} dispose={null} scale={0.6} rotation={[Math.PI / 2, 0, 0]}>
+    <group ref={group} dispose={null} scale={0.55} rotation={[0, 0, 0]}> {/* Adjust the scale */}
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials['glass.001']} />
       <mesh geometry={nodes.M_Metal_Rough.geometry} material={materials.metal_rough} />
@@ -24,18 +24,17 @@ const IphoneModel = () => {
 const ThreeScene = () => {
   return (
     <Canvas
-      camera={{ position: [0, 0, 10], fov: 30 }}
+      camera={{ position: [0, 0, 5], fov: 20 }}  {/* Narrowed FOV while keeping the camera close */}
       gl={{ antialias: true, alpha: true }} // Enable transparency
-      style={{ background: 'none' }}        // Make sure background is none
+      style={{ background: 'none', height: '100%', width: '100%' }} // Full canvas size
     >
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 10, 7.5]} intensity={1} />
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[2, 5, 2]} intensity={1} />
       <IphoneModel />
     </Canvas>
   )
 }
 
-// New Component to render 3 iPhone models in a row
 const IphoneRow = () => {
   return (
     <div
@@ -44,17 +43,17 @@ const IphoneRow = () => {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100vw',
-        height: '500px',
+        height: '90vh', // Provide enough vertical space
         gap: '10px',
       }}
     >
-      <div style={{ width: '30%', flexBasis: '30%' }}>
+      <div style={{ width: '30%', height: '100%' }}>
         <ThreeScene />
       </div>
-      <div style={{ width: '30%', flexBasis: '30%' }}>
+      <div style={{ width: '30%', height: '100%' }}>
         <ThreeScene />
       </div>
-      <div  style={{ width: '30%', flexBasis: '30%' }}>
+      <div style={{ width: '30%', height: '100%' }}>
         <ThreeScene />
       </div>
     </div>
