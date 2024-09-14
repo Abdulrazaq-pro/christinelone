@@ -1,15 +1,14 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, forwardRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import gsap from 'gsap';
 import * as THREE from 'three';
 
-const IphoneModel = ({ position }) => {
-  const group = useRef();
+const IphoneModel = forwardRef(({ position }, ref) => {
   const { nodes, materials } = useGLTF('/Iphone15.glb');
 
   return (
-    <group ref={group} dispose={null} scale={0.2} position={position}>
+    <group ref={ref} dispose={null} scale={0.2} position={position}>
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials['glass.001']} />
       <mesh geometry={nodes.M_Metal_Rough.geometry} material={materials.metal_rough} />
@@ -21,7 +20,7 @@ const IphoneModel = ({ position }) => {
       <mesh geometry={nodes.M_USB.geometry} material={materials.metal_rough} />
     </group>
   );
-};
+});
 
 const Carousel = () => {
   const modelsRef = useRef([]);
