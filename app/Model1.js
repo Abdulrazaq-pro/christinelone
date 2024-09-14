@@ -162,12 +162,7 @@ const App = () => (
         <Background />
       </Canvas>
     </div>
-    
-      
-      
-           
-      
-
+  
     <TextSection />
   </div>
 )
