@@ -7,7 +7,7 @@ import * as THREE from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const IphoneModel = () => {
+const IphoneModel = ({ position }) => {
   const group = useRef();
   const { nodes, materials } = useGLTF('/Iphone15.glb');
 
@@ -26,7 +26,7 @@ const IphoneModel = () => {
   }, []);
 
   return (
-    <group ref={group} dispose={null} scale={0.2} rotation={[Math.PI / 2, 0, 0]}>
+    <group ref={group} dispose={null} scale={0.2} rotation={[Math.PI / 2, 0, 0]} position={position}>
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials['glass.001']} />
       <mesh geometry={nodes.M_Metal_Rough.geometry} material={materials.metal_rough} />
@@ -129,12 +129,10 @@ const Model2 = () => (
       <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 10, 7.5]} intensity={1} />
-        <group className="model-group" style={{ display: 'flex', justifyContent: 'space-around' }}>
-          {/* Three iPhone models displayed side by side */}
-          <IphoneModel />
-          <IphoneModel />
-          <IphoneModel />
-        </group>
+        {/* Position each IphoneModel instance side by side */}
+        <IphoneModel position={[-2, 0, 0]} />
+        <IphoneModel position={[0, 0, 0]} />
+        <IphoneModel position={[2, 0, 0]} />
         <ThreeScene /> {/* The component controlling the camera */}
         <Background />
       </Canvas>
