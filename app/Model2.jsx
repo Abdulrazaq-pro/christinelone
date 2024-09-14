@@ -44,7 +44,7 @@ const IphoneRow = () => {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100vw',
-        height: '500px',
+        height: '1000px',
         gap: '10px',
       }}
     >
