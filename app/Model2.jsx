@@ -48,19 +48,19 @@ const IphoneRow = () => {
     <div
       style={{
         display: 'flex',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',  // Ensures the models fill the entire width
         alignItems: 'center',
         width: '100vw',
         height: '500px',
       }}
     >
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, margin: '0 10px' }}> {/* Reduce the margin between models */}
         <ThreeScene />
       </div>
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, margin: '0 10px' }}>
         <ThreeScene />
       </div>
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, margin: '0 10px' }}>
         <ThreeScene />
       </div>
     </div>
@@ -68,7 +68,7 @@ const IphoneRow = () => {
 }
 
 const Model2 = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', height: '400vh' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}> {/* Changed to 100vh to fit the screen */}
     <div id="three-canvas-container">
       <IphoneRow />
     </div>
