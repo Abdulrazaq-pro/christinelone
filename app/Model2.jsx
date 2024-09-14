@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 
@@ -69,7 +69,6 @@ const IphoneRow = () => {
 
 const Model2 = () => (
   <div style={{ display: 'flex', flexDirection: 'column', height: '400vh' }}>
-    
     <div id="three-canvas-container">
       <IphoneRow />
     </div>
