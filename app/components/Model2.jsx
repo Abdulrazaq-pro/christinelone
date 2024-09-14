@@ -159,8 +159,7 @@ const Model1 = () => (
         <directionalLight position={[5, 10, 7.5]} intensity={1} />
         <div className="flex justify-between gap-2">
           <div><IphoneModel2 /></div>
-          <div><IphoneModel2 /></div>
-          <div><IphoneModel2 /></div>
+          
      
         </div>
         <ThreeScene /> {/* The component controlling the camera */}
