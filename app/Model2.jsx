@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { useGLTF, OrbitControls } from '@react-three/drei'; // Import OrbitControls here
+import { useGLTF, OrbitControls } from '@react-three/drei'; // OrbitControls is already imported here
 import { gsap } from 'gsap';
-import * as THREE from 'three'; // Ensure you import THREE for any background or scene changes
 
 // iPhone Model Component
 const IphoneModel = () => {
@@ -10,7 +9,7 @@ const IphoneModel = () => {
   const { nodes, materials } = useGLTF('/Iphone15.glb');
 
   return (
-    <group ref={group} dispose={null} scale={0.3} rotation={[Math.PI / 2, 0, 0]}>
+    <group ref={group} scale={0.3} rotation={[Math.PI / 2, 0, 0]}>
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials['glass.001']} />
       <mesh geometry={nodes.M_Metal_Rough.geometry} material={materials.metal_rough} />
@@ -30,11 +29,11 @@ const ThreeScene = () => {
     <Canvas
       camera={{ position: [0, 0, 10], fov: 45 }}
       gl={{ antialias: true, alpha: true }} // Enable transparency for background
-      style={{ background: 'none' }}        // Make sure the background is transparent
     >
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
       <IphoneModel />
+      <OrbitControls enableZoom={false} /> {/* Add OrbitControls to ThreeScene for interactivity */}
     </Canvas>
   );
 };
@@ -44,8 +43,8 @@ const IphoneRow = () => {
   const rowRef = useRef();
 
   useEffect(() => {
-    // GSAP animation to scale the row content
-    gsap.set(rowRef.current, { scale: 1.5 }); // Adjust the scale as needed
+    // GSAP animation to scale the row content dynamically
+    gsap.to(rowRef.current, { scale: 1.5, duration: 1 }); // Add some animation duration
   }, []);
 
   return (
@@ -61,15 +60,11 @@ const IphoneRow = () => {
       }}
     >
       {/* Three iPhone models in a row */}
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
-        <ThreeScene />
-      </div>
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
-        <ThreeScene />
-      </div>
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
-        <ThreeScene />
-      </div>
+      {[...Array(3)].map((_, i) => (
+        <div key={i} className="scale-300" style={{ width: '30%' }}>
+          <ThreeScene />
+        </div>
+      ))}
     </div>
   );
 };
