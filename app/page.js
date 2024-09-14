@@ -1,8 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import Model1 from './Model1'
-import Model2 from './Model2'
+import Model1 from './components/Model1'
+import Model2 from './components/Model1'
 
 
 export default function Home() {
