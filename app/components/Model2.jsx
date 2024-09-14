@@ -7,22 +7,22 @@ import * as THREE from 'three'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const IphoneModel2 = () => {
+const IphoneModel = () => {
   const group = useRef()
   const { nodes, materials } = useGLTF('/Iphone15.glb')
 
   useEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: '#three-canvas-container2',
+        trigger: '#three-canvas-container',
         scrub: 1,
         pin: true,
         start: 'top top',
-        end: 'bottom top'
-      }
+        end: 'bottom top',
+      },
     })
 
-    // Rotate the model along the Y-axis as the page scrolls yhhhhhhh
+    // Rotate the model along the Y-axis as the page scrolls
     tl.to(group.current.rotation, { z: Math.PI, duration: 2 }) // Rotates 180 degrees on the Y axis
   }, [])
 
@@ -40,19 +40,19 @@ const IphoneModel2 = () => {
     </group>
   )
 }
-const IphoneModel1 = () => {
+const IphoneModel2 = () => {
   const group = useRef()
   const { nodes, materials } = useGLTF('/Iphone15.glb')
 
   useEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: '#three-canvas-container2',
+        trigger: '#three-canvas-container',
         scrub: 1,
         pin: true,
         start: 'top top',
-        end: 'bottom top'
-      }
+        end: 'bottom top',
+      },
     })
 
     // Rotate the model along the Y-axis as the page scrolls
@@ -98,8 +98,8 @@ const TextSection = () => {
           start: 'top bottom',
           end: 'center center',
           scrub: 1,
-          markers: false
-        }
+          markers: false,
+        },
       }
     )
   }, [])
@@ -116,8 +116,9 @@ const TextSection = () => {
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        top: '500px'
-      }}>
+        top: '500px',
+      }}
+    >
       {texts.map((text, index) => (
         <h1 key={index} ref={(el) => (textRefs.current[index] = el)} style={{ opacity: 0 }}>
           {text}
@@ -129,15 +130,15 @@ const TextSection = () => {
 
 const ThreeScene = () => {
   const { camera } = useThree()
-
+  
   useEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: '#three-canvas-container2',
+        trigger: '#three-canvas-container',
         scrub: 1,
         start: 'top top',
-        end: 'bottom top'
-      }
+        end: 'bottom top',
+      },
     })
 
     // Animate the camera's Z position to zoom in as you scroll
@@ -152,20 +153,18 @@ const Model2 = () => (
     <div className="some-content" style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <h1>ACTION</h1>
     </div>
-    <div id="three-canvas-container2" style={{ width: '100vw', height: '500px' }}>
+    <div id="three-canvas-container" style={{ width: '100vw', height: '500px' }}>
       <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
-        {/* <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}> */}
+      {/* <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}> */}
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 10, 7.5]} intensity={1} />
-        <div className="flex justify-between gap-2">
-          <div><IphoneModel2 /></div>
-          
-     
-        </div>
+        <IphoneModel />
         <ThreeScene /> {/* The component controlling the camera */}
         <Background />
       </Canvas>
     </div>
+  
+    <TextSection />
   </div>
 )
 
