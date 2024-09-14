@@ -7,7 +7,7 @@ const IphoneModel = () => {
   const { nodes, materials } = useGLTF('/Iphone15.glb')
 
   return (
-    <group ref={group} dispose={null} scale={0.4} rotation={[Math.PI / 2, 0, 0]}>
+    <group ref={group} dispose={null} scale={0.6} rotation={[Math.PI / 2, 0, 0]}>
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials['glass.001']} />
       <mesh geometry={nodes.M_Metal_Rough.geometry} material={materials.metal_rough} />
@@ -24,7 +24,7 @@ const IphoneModel = () => {
 const ThreeScene = () => {
   return (
     <Canvas
-      camera={{ position: [0, 0, 10], fov: 45 }}
+      camera={{ position: [0, 0, 10], fov: 60 }}
       gl={{ antialias: true, alpha: true }} // Enable transparency
       style={{ background: 'none' }}        // Make sure background is none
     >
