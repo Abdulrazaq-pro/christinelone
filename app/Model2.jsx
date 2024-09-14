@@ -48,13 +48,13 @@ const IphoneRow = () => {
         gap: '10px',
       }}
     >
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+      <div style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+      <div style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
-      <div  className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
+      <div  style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
     </div>
