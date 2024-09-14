@@ -24,9 +24,9 @@ const IphoneModel = () => {
 const ThreeScene = () => {
   return (
     <Canvas
-      camera={{ position: [0, 0, 10], fov: 45 }}
+      camera={{ position: [0, 0, 12], fov: 50 }} // Adjusted the camera position and fov to zoom out
       gl={{ antialias: true, alpha: true }} // Enable transparency
-      style={{ background: 'none' }}        // Make sure background is none
+      style={{ background: 'none' }} // Ensure no background
     >
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
@@ -44,7 +44,7 @@ const IphoneRow = () => {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100vw',
-        
+        height: '500px',
         gap: '10px',
       }}
     >
@@ -54,7 +54,7 @@ const IphoneRow = () => {
       <div style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
-      <div  style={{ width: '30%', flexBasis: '30%' }}>
+      <div style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
     </div>
@@ -62,7 +62,7 @@ const IphoneRow = () => {
 }
 
 const Model2 = () => (
-  <div style={{ display: 'flex', flexDirection: 'column' }}>
+  <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
     <div id="three-canvas-container">
       <IphoneRow />
     </div>
