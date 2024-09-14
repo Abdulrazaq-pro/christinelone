@@ -129,7 +129,12 @@ const Model2 = () => (
       <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 10, 7.5]} intensity={1} />
-        <IphoneModel />
+        <group className="model-group" style={{ display: 'flex', justifyContent: 'space-around' }}>
+          {/* Three iPhone models displayed side by side */}
+          <IphoneModel />
+          <IphoneModel />
+          <IphoneModel />
+        </group>
         <ThreeScene /> {/* The component controlling the camera */}
         <Background />
       </Canvas>
