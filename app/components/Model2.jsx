@@ -1,32 +1,15 @@
-import React, { useRef, useEffect, useMemo } from 'react';
-import { Canvas, useThree } from '@react-three/fiber';
+import React, { useRef, useEffect } from 'react';
+import { Canvas } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import * as THREE from 'three';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const IphoneModel = ({ position }) => {
   const group = useRef();
   const { nodes, materials } = useGLTF('/Iphone15.glb');
 
-  useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#three-canvas-container',
-        scrub: 1,
-        pin: true,
-        start: 'top top',
-        end: 'bottom top',
-      },
-    });
-
-    tl.to(group.current.rotation, { z: Math.PI, duration: 2 }); // Rotate the model on scroll
-  }, []);
-
   return (
-    <group ref={group} dispose={null} scale={0.2} rotation={[Math.PI / 2, 0, 0]} position={position}>
+    <group ref={group} dispose={null} scale={0.2} position={position}>
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials['glass.001']} />
       <mesh geometry={nodes.M_Metal_Rough.geometry} material={materials.metal_rough} />
@@ -40,79 +23,48 @@ const IphoneModel = ({ position }) => {
   );
 };
 
-const Background = () => {
-  const { scene } = useThree();
-  useEffect(() => {
-    scene.background = new THREE.Color('#555555');
-  }, [scene]);
-
-  return null;
-};
-
-const TextSection = () => {
-  const textRefs = useRef([]);
+const Carousel = () => {
+  const modelsRef = useRef([]);
 
   useEffect(() => {
-    gsap.fromTo(
-      textRefs.current,
-      { opacity: 0 },
-      {
-        opacity: 1,
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: '#text-trigger',
-          start: 'top bottom',
-          end: 'center center',
-          scrub: 1,
-        },
-      }
-    );
-  }, []);
+    // Carousel effect using GSAP
+    const radius = 5; // Carousel radius
+    const duration = 10; // Time to complete one full rotation
 
-  const texts = ['Ready 5', 'Ready 4', 'Ready 3', 'Ready 2', 'Ready 1'];
-
-  return (
-    <div
-      id="text-trigger"
-      style={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
-        top: '500px',
-      }}
-    >
-      {texts.map((text, index) => (
-        <h1 key={index} ref={(el) => (textRefs.current[index] = el)} style={{ opacity: 0 }}>
-          {text}
-        </h1>
-      ))}
-    </div>
-  );
-};
-
-const ThreeScene = () => {
-  const { camera } = useThree();
-
-  useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#three-canvas-container',
-        scrub: 1,
-        start: 'top top',
-        end: 'bottom top',
+    gsap.to(modelsRef.current, {
+      rotationY: 360,
+      duration: duration,
+      repeat: -1, // Infinite loop
+      ease: "none", // Linear animation
+      modifiers: {
+        rotationY: (rotationY) => `${parseFloat(rotationY) % 360}deg`,
       },
     });
 
-    tl.to(camera.position, { z: 5, duration: 2 });
+    modelsRef.current.forEach((model, index) => {
+      const angle = (index / modelsRef.current.length) * Math.PI * 2;
+      const x = radius * Math.cos(angle);
+      const z = radius * Math.sin(angle);
 
-    // Clean up ScrollTrigger
-    return () => {
-      tl.scrollTrigger.kill();
-    };
-  }, [camera]);
+      gsap.set(model.position, { x, z });
+    });
+  }, []);
+
+  return (
+    <>
+      {/* Render three iPhone models */}
+      <IphoneModel ref={(el) => (modelsRef.current[0] = el)} />
+      <IphoneModel ref={(el) => (modelsRef.current[1] = el)} />
+      <IphoneModel ref={(el) => (modelsRef.current[2] = el)} />
+    </>
+  );
+};
+
+const Background = () => {
+  const scene = useRef();
+  useEffect(() => {
+    scene.current.background = new THREE.Color('#555555');
+  }, []);
 
   return null;
 };
@@ -129,15 +81,11 @@ const Model2 = () => (
       <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: false }}>
         <ambientLight intensity={0.4} />
         <directionalLight position={[5, 10, 7.5]} intensity={1} />
-        {/* Position each IphoneModel instance side by side */}
-        <IphoneModel position={[-2, 0, 0]} />
-        <IphoneModel position={[0, 0, 0]} />
-        <IphoneModel position={[2, 0, 0]} />
-        <ThreeScene /> {/* The component controlling the camera */}
+        {/* GSAP carousel effect */}
+        <Carousel />
         <Background />
       </Canvas>
     </div>
-    <TextSection />
   </div>
 );
 
