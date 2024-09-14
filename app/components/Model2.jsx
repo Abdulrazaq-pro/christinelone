@@ -14,7 +14,7 @@ const IphoneModel = () => {
   useEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: '#three-canvas-container',
+        trigger: '#three-canvas-container2',
         scrub: 1,
         pin: true,
         start: 'top top',
