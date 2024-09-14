@@ -2,12 +2,12 @@ import React, { useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 
-const IphoneModel = () => {
+const IphoneModel = ({ scale = [0.3, 0.3, 1] }) => {
   const group = useRef()
   const { nodes, materials } = useGLTF('/Iphone15.glb')
 
   return (
-    <group ref={group} dispose={null} scale={0.3} rotation={[Math.PI / 2, 0, 0]}>
+    <group ref={group} dispose={null} scale={scale} rotation={[Math.PI / 2, 0, 0]}>
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials['glass.001']} />
       <mesh geometry={nodes.M_Metal_Rough.geometry} material={materials.metal_rough} />
@@ -23,48 +23,27 @@ const IphoneModel = () => {
 
 const ThreeScene = () => {
   return (
-    <Canvas
-      camera={{ position: [0, 0, 10], fov: 45 }}
-      gl={{ antialias: true, alpha: true }} // Enable transparency
-      style={{ background: 'none' }}        // Make sure background is none
-    >
+    <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: true }} style={{ background: 'none' }}>
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
-      <IphoneModel />
+      {/* Render 3 iPhone models within one Canvas */}
+      <group position={[-4, 0, 0]}>
+        <IphoneModel />
+      </group>
+      <group position={[0, 0, 0]}>
+        <IphoneModel />
+      </group>
+      <group position={[4, 0, 0]}>
+        <IphoneModel />
+      </group>
     </Canvas>
-  )
-}
-
-// New Component to render 3 iPhone models in a row
-const IphoneRow = () => {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100vw',
-        height: '500px',
-        gap: '10px',
-      }}
-    >
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
-        <ThreeScene />
-      </div>
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
-        <ThreeScene />
-      </div>
-      <div  className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
-        <ThreeScene />
-      </div>
-    </div>
   )
 }
 
 const Model2 = () => (
   <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
     <div id="three-canvas-container">
-      <IphoneRow />
+      <ThreeScene />
     </div>
   </div>
 )
