@@ -1,13 +1,14 @@
-import React, { useRef } from 'react'
-import { Canvas } from '@react-three/fiber'
+import React, { useRef, useEffect } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
+import { useSpring, animated } from '@react-spring/three'
 
-const IphoneModel = () => {
+const IphoneModel = ({ scale = [0.3, 0.3, 1] }) => {
   const group = useRef()
   const { nodes, materials } = useGLTF('/Iphone15.glb')
 
   return (
-    <group ref={group} dispose={null} scale={0.3} rotation={[Math.PI / 2, 0, 0]}>
+    <group ref={group} dispose={null} scale={scale} rotation={[Math.PI / 2, 0, 0]}>
       <mesh geometry={nodes.M_Cameras.geometry} material={materials.cam} />
       <mesh geometry={nodes.M_Glass.geometry} material={materials['glass.001']} />
       <mesh geometry={nodes.M_Metal_Rough.geometry} material={materials.metal_rough} />
@@ -21,50 +22,35 @@ const IphoneModel = () => {
   )
 }
 
-const ThreeScene = () => {
-  return (
-    <Canvas
-      camera={{ position: [0, 0, 10], fov: 45 }}
-      gl={{ antialias: true, alpha: true }} // Enable transparency
-      style={{ background: 'none' }}        // Make sure background is none
-    >
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 10, 7.5]} intensity={1} />
-      <IphoneModel />
-    </Canvas>
-  )
+const CameraController = () => {
+  const { camera } = useThree() // Access the camera
+  const spring = useSpring({
+    z: 5,       // New Z position for the camera
+    from: { z: 10 }, // Start at Z position 10
+    config: { duration: 2000 }, // Animation duration (2 seconds)
+    onFrame: (props) => {
+      camera.position.z = props.z // Update camera z position during the animation
+    },
+  })
+
+  return null // No JSX to render, just controlling the camera
 }
 
-// New Component to render 3 iPhone models in a row
-const IphoneRow = () => {
+const ThreeScene = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100vw',
-        height: '500px',
-        gap: '10px',
-      }}
-    >
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
-        <ThreeScene />
-      </div>
-      <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
-        <ThreeScene />
-      </div>
-      <div  className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
-        <ThreeScene />
-      </div>
-    </div>
+    <Canvas camera={{ position: [0, 0, 10], fov: 45 }} gl={{ antialias: true, alpha: true }} style={{ background: 'none' }}>
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[5, 10, 7.5]} intensity={1} />
+      <CameraController /> {/* Component to control camera animation */}
+      <IphoneModel />
+    </Canvas>
   )
 }
 
 const Model2 = () => (
   <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
     <div id="three-canvas-container">
-      <IphoneRow />
+      <ThreeScene />
     </div>
   </div>
 )
