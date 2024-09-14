@@ -44,8 +44,8 @@ const IphoneRow = () => {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100vw',
-        height: '1000px',
         gap: '10px',
+        minHeight: '100vh', // Make sure it takes at least full viewport height
       }}
     >
       <div style={{ width: '30%', flexBasis: '30%' }}>
@@ -62,11 +62,8 @@ const IphoneRow = () => {
 }
 
 const Model2 = () => (
-  <div style={{ width: '100vw', height: '500px' }}>
-  {/* <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}> */}
-    <div>
-      <IphoneRow />
-    </div>
+  <div style={{ width: '100vw', minHeight: '100vh' }}>
+    <IphoneRow />
   </div>
 )
 
