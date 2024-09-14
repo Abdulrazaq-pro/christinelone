@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from 'react'
-import { Canvas } from '@react-three/fiber'
-import { useGLTF } from '@react-three/drei'
-import { gsap } from 'gsap'
+import React, { useEffect, useRef } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { useGLTF, OrbitControls } from '@react-three/drei'; // Import OrbitControls here
+import { gsap } from 'gsap';
+import * as THREE from 'three'; // Ensure you import THREE for any background or scene changes
 
+// iPhone Model Component
 const IphoneModel = () => {
-  const group = useRef()
-  const { nodes, materials } = useGLTF('/Iphone15.glb')
+  const group = useRef();
+  const { nodes, materials } = useGLTF('/Iphone15.glb');
 
   return (
     <group ref={group} dispose={null} scale={0.3} rotation={[Math.PI / 2, 0, 0]}>
@@ -19,30 +21,32 @@ const IphoneModel = () => {
       <mesh geometry={nodes.M_Speakers.geometry} material={materials.metal_rough} />
       <mesh geometry={nodes.M_USB.geometry} material={materials.metal_rough} />
     </group>
-  )
-}
+  );
+};
 
+// Three.js Scene Component
 const ThreeScene = () => {
   return (
     <Canvas
       camera={{ position: [0, 0, 10], fov: 45 }}
-      gl={{ antialias: true, alpha: true }} // Enable transparency
-      style={{ background: 'none' }}        // Make sure background is none
+      gl={{ antialias: true, alpha: true }} // Enable transparency for background
+      style={{ background: 'none' }}        // Make sure the background is transparent
     >
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
       <IphoneModel />
     </Canvas>
-  )
-}
+  );
+};
 
+// iPhone Row with GSAP Animation
 const IphoneRow = () => {
-  const rowRef = useRef()
+  const rowRef = useRef();
 
   useEffect(() => {
-    // GSAP set to instantly zoom in
-    gsap.set(rowRef.current, { scale: 1.5 }) // Adjust the scale as per your zoom requirement
-  }, [])
+    // GSAP animation to scale the row content
+    gsap.set(rowRef.current, { scale: 1.5 }); // Adjust the scale as needed
+  }, []);
 
   return (
     <div
@@ -56,6 +60,7 @@ const IphoneRow = () => {
         gap: '10px',
       }}
     >
+      {/* Three iPhone models in a row */}
       <div className="scale-300" style={{ width: '30%', flexBasis: '30%' }}>
         <ThreeScene />
       </div>
@@ -66,23 +71,24 @@ const IphoneRow = () => {
         <ThreeScene />
       </div>
     </div>
-  )
-}
+  );
+};
 
+// Model2 Component
 const Model2 = () => (
   <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
     <Canvas
       camera={{ position: [0, 0, 10], fov: 45 }}
-      gl={{ antialias: true, alpha: false }}
+      gl={{ antialias: true, alpha: false }} // No transparency needed here
     >
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 10, 7.5]} intensity={1} />
       <IphoneModel /> {/* This renders the iPhone model */}
       <OrbitControls enableZoom={false} /> {/* Optional: If you want to control the model */}
-      <Background /> {/* This will set the background color of the scene */}
     </Canvas>
+    {/* Include the IphoneRow or other components below the main canvas if needed */}
+    <IphoneRow />
   </div>
 );
 
-
-export default Model2
+export default Model2;
